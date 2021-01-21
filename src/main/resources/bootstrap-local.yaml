@@ -1,0 +1,14 @@
+zuul:
+  host:
+    connect-timeout-millis: 3000
+    socket-timeout-millis: 3000
+  routes:      
+    config:
+      path: /config/**
+      url: http://localhost:9001
+      stripPrefix: false
+    webhook:
+      path: /webhook/**
+      service-id: webhook
+      stripPrefix: false
+  retryable: true
