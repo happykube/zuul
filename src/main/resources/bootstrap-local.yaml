@@ -6,9 +6,9 @@ zuul:
     config:
       path: /config/**
       url: http://localhost:9001
-      stripPrefix: false
+      stripPrefix: true
     webhook:
       path: /webhook/**
       service-id: webhook
-      stripPrefix: false
+      stripPrefix: true
   retryable: true
