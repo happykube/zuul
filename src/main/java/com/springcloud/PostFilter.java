@@ -32,7 +32,7 @@ public class PostFilter extends ZuulFilter {
 
     @Override
     public Object run() throws ZuulException {
-    	log.debug("Post Filter");
+    	log.info("### Post Filter");
         return null;
     }
 }
