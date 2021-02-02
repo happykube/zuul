@@ -10,8 +10,9 @@ import com.netflix.hystrix.exception.HystrixTimeoutException;
 @Configuration
 public class ConsumerFallbackConfiguration implements FallbackProvider {
 
+	private static final String DELAY_RESPONSE = "consumer is now very slow.";
 	private static final String NOT_AVAILABLE = "consumer is not available.";
-
+	
 	/**
 	 * The route this fallback will be used for.
 	 * 
@@ -32,7 +33,7 @@ public class ConsumerFallbackConfiguration implements FallbackProvider {
 	@Override // fallback 발생 시 호출되는 method
 	public ClientHttpResponse fallbackResponse(String route, Throwable cause) {
 		if (cause instanceof HystrixTimeoutException) {
-			return new GatewayClientResponse(HttpStatus.GATEWAY_TIMEOUT, NOT_AVAILABLE);
+			return new GatewayClientResponse(HttpStatus.GATEWAY_TIMEOUT, DELAY_RESPONSE);
 		} else {
 			return new GatewayClientResponse(HttpStatus.INTERNAL_SERVER_ERROR, NOT_AVAILABLE);
 		}
