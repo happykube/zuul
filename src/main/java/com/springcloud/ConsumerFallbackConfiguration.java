@@ -1,5 +1,7 @@
 package com.springcloud;
 
+import java.net.SocketTimeoutException;
+
 import org.springframework.cloud.netflix.zuul.filters.route.FallbackProvider;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
