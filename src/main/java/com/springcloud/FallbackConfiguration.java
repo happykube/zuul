@@ -10,7 +10,7 @@ import org.springframework.http.client.ClientHttpResponse;
 import com.netflix.hystrix.exception.HystrixTimeoutException;
 
 @Configuration
-public class ConsumerFallbackConfiguration implements FallbackProvider {
+public class FallbackConfiguration implements FallbackProvider {
 
 	private static final String DELAY_RESPONSE = "consumer is now very slow.";
 	private static final String NOT_AVAILABLE = "consumer is not available.";
@@ -35,7 +35,9 @@ public class ConsumerFallbackConfiguration implements FallbackProvider {
 	 */
 	@Override // fallback 발생 시 호출되는 method
 	public ClientHttpResponse fallbackResponse(String route, Throwable cause) {
+		System.out.println("route=>"+route);
 		if (cause instanceof SocketTimeoutException) {
+			
 			System.out.println("##### zuul to consumer: Socket Timeout exception");
 			return new GatewayClientResponse(HttpStatus.GATEWAY_TIMEOUT, DELAY_RESPONSE);
 		} else {
