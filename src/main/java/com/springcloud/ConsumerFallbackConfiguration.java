@@ -10,7 +10,7 @@ import com.netflix.hystrix.exception.HystrixTimeoutException;
 @Configuration
 public class ConsumerFallbackConfiguration implements FallbackProvider {
 
-	private static final String NOT_AVAILABLE = "service-1 is not available.";
+	private static final String NOT_AVAILABLE = "consumer is not available.";
 
 	/**
 	 * The route this fallback will be used for.
@@ -19,7 +19,7 @@ public class ConsumerFallbackConfiguration implements FallbackProvider {
 	 */
 	@Override // fallback을 등록할 route return
 	public String getRoute() {
-		return "service-1";
+		return "consumer";
 	}
 
 	/**
