@@ -33,8 +33,10 @@ public class ConsumerFallbackConfiguration implements FallbackProvider {
 	@Override // fallback 발생 시 호출되는 method
 	public ClientHttpResponse fallbackResponse(String route, Throwable cause) {
 		if (cause instanceof HystrixTimeoutException) {
+			System.out.println("##### zuul to consumer: Hystrix Timeout exception");
 			return new GatewayClientResponse(HttpStatus.GATEWAY_TIMEOUT, DELAY_RESPONSE);
 		} else {
+			System.out.println("##### zuul to consumer: "+cause.toString());
 			return new GatewayClientResponse(HttpStatus.INTERNAL_SERVER_ERROR, NOT_AVAILABLE);
 		}
 	}
