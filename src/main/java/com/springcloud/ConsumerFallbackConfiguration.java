@@ -22,7 +22,8 @@ public class ConsumerFallbackConfiguration implements FallbackProvider {
 	 */
 	@Override // fallback을 등록할 route return
 	public String getRoute() {
-		return "consumer";
+		//return "consumer";
+		return "*";
 	}
 
 	/**
