@@ -12,8 +12,8 @@ import com.netflix.hystrix.exception.HystrixTimeoutException;
 @Configuration
 public class FallbackConfiguration implements FallbackProvider {
 
-	private static final String DELAY_RESPONSE = "consumer is now very slow.";
-	private static final String NOT_AVAILABLE = "consumer is not available.";
+	private static final String DELAY_RESPONSE = "is very slow.";
+	private static final String NOT_AVAILABLE = "is not available.";
 	
 	/**
 	 * The route this fallback will be used for.
@@ -35,14 +35,11 @@ public class FallbackConfiguration implements FallbackProvider {
 	 */
 	@Override // fallback 발생 시 호출되는 method
 	public ClientHttpResponse fallbackResponse(String route, Throwable cause) {
-		System.out.println("route=>"+route);
+		System.out.println("##### zuul to "+route+": "+cause.toString());
 		if (cause instanceof SocketTimeoutException) {
-			
-			System.out.println("##### zuul to consumer: Socket Timeout exception");
-			return new GatewayClientResponse(HttpStatus.GATEWAY_TIMEOUT, DELAY_RESPONSE);
-		} else {
-			System.out.println("##### zuul to consumer: "+cause.toString());
-			return new GatewayClientResponse(HttpStatus.INTERNAL_SERVER_ERROR, NOT_AVAILABLE);
+			return new GatewayClientResponse(HttpStatus.GATEWAY_TIMEOUT, route+" "+DELAY_RESPONSE);
+		} else {			
+			return new GatewayClientResponse(HttpStatus.INTERNAL_SERVER_ERROR, route+" "+NOT_AVAILABLE);
 		}
 	}
 }
