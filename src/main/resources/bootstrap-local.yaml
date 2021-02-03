@@ -12,3 +12,8 @@ zuul:
       service-id: webhook
       stripPrefix: true
   retryable: true
+
+management.endpoints.web.exposure:
+  include: auditevents
+  exclude: bus-refresh
+
